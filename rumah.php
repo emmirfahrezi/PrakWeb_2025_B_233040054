@@ -2,34 +2,29 @@
 
 class Rumah {
 
-  public $warna = "Putih";
-  public $jumlahKamar = 4;
-  public $alamat = "Jl. Merpati No. 10";
+  public $warna;
+  public $jumlahKamar;
+  public $alamat;
+
+  public function __construct($warna = "putih", $jumlahKamar = 3, $alamat = "Jalan Merdeka No.1") {
+      $this->warna = $warna;
+      $this->jumlahKamar = $jumlahKamar;
+      $this->alamat = $alamat;
+  }
 
   public function kunciPintu() {
-    return "Pintu Terkunci";
-  }
-
-  public function gantiWarna($warnaBaru) {
-    $this->warna = $warnaBaru;
-    return "warna rumah berhasil diubah menjadi " . $this->warna;
-  }
-
+      return "Pintu di alamat $this->alamat telah dikunci.";
+  } 
 }
 
-//bagian object
+$rumahSaya = new Rumah("biru", 4, "Jalan Sudirman No.10");
+$rumahTetangga = new Rumah("kuning", 2, "Jalan Thamrin No.5");
 
-$rumahSaya = new Rumah();
-echo "Warna awal rumah saya: " . $rumahSaya->warna;
+echo "warna rumah saya: " . $rumahSaya->warna;
 echo "<br>";
-
-echo $rumahSaya->gantiWarna("Biru");
+echo "jumlah kamar rumah saya: " . $rumahSaya->jumlahKamar;
 echo "<br>";
-echo "Warna rumah saya sekarang: " . $rumahSaya->warna;
+echo "Alamat rumah saya: " . $rumahSaya->alamat;
 echo "<br>";
 echo $rumahSaya->kunciPintu();
-echo "<hr>";
 
-$rumahTetangga = new Rumah();
-echo "Warna awal rumah tetangga: " . $rumahTetangga->warna;
-?>
