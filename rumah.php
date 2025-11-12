@@ -17,5 +17,19 @@ class Rumah {
 
 }
 
+//bagian object
+
 $rumahSaya = new Rumah();
+echo "Warna awal rumah saya: " . $rumahSaya->warna;
+echo "<br>";
+
+echo $rumahSaya->gantiWarna("Biru");
+echo "<br>";
+echo "Warna rumah saya sekarang: " . $rumahSaya->warna;
+echo "<br>";
+echo $rumahSaya->kunciPintu();
+echo "<hr>";
+
 $rumahTetangga = new Rumah();
+echo "Warna awal rumah tetangga: " . $rumahTetangga->warna;
+?>
