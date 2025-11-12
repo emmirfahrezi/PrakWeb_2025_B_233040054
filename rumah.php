@@ -3,28 +3,20 @@
 class Rumah {
 
   public $warna;
-  public $jumlahKamar;
   public $alamat;
 
-  public function __construct($warna = "putih", $jumlahKamar = 3, $alamat = "Jalan Merdeka No.1") {
+  public function __construct($warna = "putih", $alamat = "Jalan Merdeka No.1") {
       $this->warna = $warna;
-      $this->jumlahKamar = $jumlahKamar;
       $this->alamat = $alamat;
   }
-
-  public function kunciPintu() {
-      return "Pintu di alamat $this->alamat telah dikunci.";
-  } 
 }
 
-$rumahSaya = new Rumah("biru", 4, "Jalan Sudirman No.10");
-$rumahTetangga = new Rumah("kuning", 2, "Jalan Thamrin No.5");
+  function pasangListrik(Rumah $dataRumah) {
+      return "Listrik sudah terpasang di rumah " . $dataRumah->warna . " yang beralamat di " . $dataRumah->alamat;
+  } 
 
-echo "warna rumah saya: " . $rumahSaya->warna;
+$rumahSaya = new Rumah("biru","Jalan Sudirman No.10");
+echo pasangListrik($rumahSaya);
 echo "<br>";
-echo "jumlah kamar rumah saya: " . $rumahSaya->jumlahKamar;
-echo "<br>";
-echo "Alamat rumah saya: " . $rumahSaya->alamat;
-echo "<br>";
-echo $rumahSaya->kunciPintu();
 
+$teksbiasa = "ini cuman string biasa";
