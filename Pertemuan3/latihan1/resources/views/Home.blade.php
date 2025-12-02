@@ -2,5 +2,5 @@
     <x-slot:title>
         {{ $title }}
     </x-slot:title>
-    <p class="text-xl">Halaman about</p>
+    <p class="text-xl">Halaman home</p>
 </x-layout>

@@ -20,7 +20,7 @@ Route::get('/blog', function () {
     return view('blog', ['title' => 'blog']);
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+// Resource routes for posts and categories (CRUD)
 
 
 //route untuk memanggil method di PostController
