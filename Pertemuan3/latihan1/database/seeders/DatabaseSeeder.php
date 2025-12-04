@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
         }
-        Category::factory(5)->create();
+        Category::factory(2)->create();
 
         Post::factory(10)->recycle(User::all())->recycle(Category::all())->create();
     }

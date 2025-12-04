@@ -10,7 +10,13 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('author', 'category')->get();
         return view('Posts', compact('posts'));
+    }
+
+    public function show($post)
+    {
+       $post->load (['author', 'category']);
+       return view('Post', compact('post'));
     }
 }

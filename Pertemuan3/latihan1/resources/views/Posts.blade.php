@@ -3,7 +3,6 @@
   <x-slot:title>
     Posts
   </x-slot:title>
-  <h1>Daftar Posts</h1>
   
   @foreach ($posts as $post)
     <article>
