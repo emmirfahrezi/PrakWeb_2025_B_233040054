@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -23,11 +24,8 @@ Route::get('/blog', function () {
     return view('blog', ['title' => 'blog']);
 });
 
-// Resource routes for posts and categories (CRUD)
+// Resource routes for categories (CRUD)
 
-
-//route untuk memanggil method di PostController
-Route::resource('posts', PostController::class);
 
 //route untuk memanggil method di CategoryController
 Route::resource('categories', CategoryController::class);
@@ -54,3 +52,26 @@ Route::post('/login', [LoginController::class, 'login'])
 // Route logout – hanya untuk yang sudah login
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Route dashboard – hanya untuk yang sudah login
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
+    // Index - list all user's posts
+    Route::get('/', [DashboardPostController::class, 'index'])->name('dashboard.index');
+
+    // Create - show create form
+    Route::get('/create', [DashboardPostController::class, 'create'])->name('dashboard.create');
+
+    // Store - save new post
+    Route::post('/', [DashboardPostController::class, 'store'])->name('dashboard.store');
+
+    // Show - view single post
+    Route::get('/{post}', [DashboardPostController::class, 'show'])->name('dashboard.show');
+
+    // Edit - show edit form
+    Route::get('/{post}/edit', [DashboardPostController::class, 'edit'])->name('dashboard.edit');
+
+    // Update - save changes
+    Route::put('/{post}', [DashboardPostController::class, 'update'])->name('dashboard.update');
+
+    // Destroy - delete post
+    Route::delete('/{post}', [DashboardPostController::class, 'destroy'])->name('dashboard.destroy');
+});
