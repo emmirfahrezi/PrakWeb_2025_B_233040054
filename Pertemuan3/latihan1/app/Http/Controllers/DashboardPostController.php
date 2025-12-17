@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardPostController extends Controller
 {
@@ -37,13 +38,35 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required',
-            'category_id' => 'required|exists:categories,id',
+        // Validasi input dengan custom messages
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id', // Memastikan ID ada di tabel categories
             'excerpt' => 'required',
             'body' => 'required',
+            // Aturan untuk Image: Opsional (nullable), harus gambar, format tertentu, max 2MB
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            // Custom Messages
+            'title.required' => 'Field Title wajib diisi',
+            'title.max' => 'Field Title tidak boleh lebih dari 255 karakter',
+            'category_id.required' => 'Field Category wajib dipilih',
+            'category_id.exists' => 'Category yang dipilih tidak valid',
+            'excerpt.required' => 'Field Excerpt wajib diisi',
+            'body.required' => 'Field Content wajib diisi',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.max' => 'Ukuran gambar maksimal 2MB',
         ]);
+
+        // Failure handling
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->all());
+        }
+
+        $validated = $validator->validated();
 
         $slug = Str::slug($request->title);
 
@@ -72,6 +95,8 @@ class DashboardPostController extends Controller
         ]);
 
         return redirect()->route('dashboard.index')->with('success', 'Post created successfully');
+
+        
         
     }
 
@@ -107,13 +132,35 @@ class DashboardPostController extends Controller
             abort(403, 'Unauthorized action.');
         }
         
-        $validated = $request->validate([
-            'title' => 'required',
-            'category_id' => 'required|exists:categories,id',
+        // Validasi input dengan custom messages
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id', // Memastikan ID ada di tabel categories
             'excerpt' => 'required',
             'body' => 'required',
+            // Aturan untuk Image: Opsional (nullable), harus gambar, format tertentu, max 2MB
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            // Custom Messages
+            'title.required' => 'Field Title wajib diisi',
+            'title.max' => 'Field Title tidak boleh lebih dari 255 karakter',
+            'category_id.required' => 'Field Category wajib dipilih',
+            'category_id.exists' => 'Category yang dipilih tidak valid',
+            'excerpt.required' => 'Field Excerpt wajib diisi',
+            'body.required' => 'Field Content wajib diisi',
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'image.max' => 'Ukuran gambar maksimal 2MB',
         ]);
+
+        // Failure handling
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->all());
+        }
+
+        $validated = $validator->validated();
 
         // Regenerate slug if title changed, ensuring uniqueness across posts
         $slug = Str::slug($validated['title']);
@@ -126,6 +173,8 @@ class DashboardPostController extends Controller
         }
 
         $validated['slug'] = $slug;
+
+        
 
         // Handle file upload
         if ($request->hasFile('image')) {

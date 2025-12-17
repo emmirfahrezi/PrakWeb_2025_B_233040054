@@ -9,15 +9,18 @@
         <div class="col-span-2">
             <label for="title" class="block mb-2.5 text-sm font-medium text-heading">Title</label>
             <input type="text" name="title" id="title" value="{{ old('title') }}"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body @error('title') border-red-500 ring-red-500 @enderror"
                 placeholder="Enter post title" />
+            @error('title')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Category --}}
         <div class="col-span-2">
             <label for="category_id" class="block mb-2.5 text-sm font-medium text-heading">Category</label>
             <select name="category_id" id="category_id"
-                class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body @error('category_id') border-red-500 ring-red-500 @enderror">
                 <option value="">Select category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -25,29 +28,41 @@
                     </option>
                 @endforeach
             </select>
+            @error('category_id')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Excerpt --}}
         <div class="col-span-2">
             <label for="excerpt" class="block mb-2.5 text-sm font-medium text-heading">Excerpt</label>
             <textarea name="excerpt" id="excerpt" rows="3"
-                class="block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
+                class="block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body @error('excerpt') border-red-500 ring-red-500 @enderror"
                 placeholder="Write a short excerpt or summary">{{ old('excerpt') }}</textarea>
+            @error('excerpt')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Body --}}
         <div class="col-span-2">
             <label for="body" class="block mb-2.5 text-sm font-medium text-heading">Content</label>
             <textarea name="body" id="body" rows="6"
-                class="block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
+                class="block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body @error('body') border-red-500 ring-red-500 @enderror"
                 placeholder="Write your post content here">{{ old('body') }}</textarea>
+            @error('body')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Image --}}
         <div class="col-span-2">
             <label for="image" class="block mb-2.5 text-sm font-medium text-heading">Image</label>
             <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/jpg"
-                class="block w-full text-sm text-heading bg-neutral-secondary-medium border border-default-medium rounded-base cursor-pointer focus:outline-none focus:ring-4 focus:ring-brand focus:border-brand shadow-xs" />
+                class="block w-full text-sm text-heading bg-neutral-secondary-medium border border-default-medium rounded-base cursor-pointer focus:outline-none focus:ring-4 focus:ring-brand focus:border-brand shadow-xs @error('image') border-red-500 ring-red-500 @enderror" />
+            @error('image')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Form Footer --}}
